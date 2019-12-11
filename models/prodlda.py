@@ -29,14 +29,14 @@ class VAE(object):
         self.transfer_fct = transfer_fct
         self.learning_rate = learning_rate
         self.batch_size = batch_size
-        print 'Learning Rate:', self.learning_rate
+        print ('Learning Rate:', self.learning_rate)
 
         # tf Graph input
         self.x = tf.placeholder(tf.float32, [None, network_architecture["n_input"]])
         self.keep_prob = tf.placeholder(tf.float32)
 
         self.h_dim = float(network_architecture["n_z"])
-        self.a = 1*np.ones((1 , self.h_dim)).astype(np.float32)
+        self.a = 1.0*np.ones((1.0 , self.h_dim)).astype(np.float32)
         self.mu2 = tf.constant((np.log(self.a).T-np.mean(np.log(self.a),1)).T)
         self.var2 = tf.constant(  ( ( (1.0/self.a)*( 1 - (2.0/self.h_dim) ) ).T +
                                 ( 1.0/(self.h_dim*self.h_dim) )*np.sum(1.0/self.a,1) ).T  )
@@ -65,7 +65,7 @@ class VAE(object):
         self.x_reconstr_mean = \
             self._generator_network(self.z,self.network_weights["weights_gener"])
 
-        print self.x_reconstr_mean
+        print (self.x_reconstr_mean)
 
     def _initialize_weights(self, n_hidden_recog_1, n_hidden_recog_2,
                             n_hidden_gener_1,
